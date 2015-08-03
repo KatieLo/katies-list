@@ -1,0 +1,94 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @day_care.name %>
+</p>
+
+<p>
+  <strong>Street:</strong>
+  <%= @day_care.street %>
+</p>
+
+<p>
+  <strong>Postcode:</strong>
+  <%= @day_care.postcode %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @day_care.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @day_care.state %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @day_care.description %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @day_care.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @day_care.longitude %>
+</p>
+
+<p>
+  <strong>Min age:</strong>
+  <%= @day_care.min_age %>
+</p>
+
+<p>
+  <strong>Max age:</strong>
+  <%= @day_care.max_age %>
+</p>
+
+<p>
+  <strong>Has waitlist:</strong>
+  <%= @day_care.has_waitlist %>
+</p>
+
+<p>
+  <strong>Average waitlist time:</strong>
+  <%= @day_care.average_waitlist_time %>
+</p>
+
+<p>
+  <strong>Group size:</strong>
+  <%= @day_care.group_size %>
+</p>
+
+<p>
+  <strong>Price per week:</strong>
+  <%= @day_care.price_per_week %>
+</p>
+
+<p>
+  <strong>Price per month:</strong>
+  <%= @day_care.price_per_month %>
+</p>
+
+<p>
+  <strong>Birth certificate required:</strong>
+  <%= @day_care.birth_certificate_required %>
+</p>
+
+<p>
+  <strong>Open time:</strong>
+  <%= @day_care.open_time %>
+</p>
+
+<p>
+  <strong>Close time:</strong>
+  <%= @day_care.close_time %>
+</p>
+
+<%= link_to 'Edit', edit_day_care_path(@day_care) %> |
+<%= link_to 'Back', day_cares_path %>

@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  street: MyString
+  postcode: MyString
+  city: MyString
+  state: MyString
+  description: MyString
+  latitude: 9.99
+  longitude: 9.99
+  min_age: 
+  max_age: 
+  has_waitlist: false
+  average_waitlist_time: 
+  group_size: 
+  price_per_week: 9.99
+  price_per_month: 9.99
+  birth_certificate_required: false
+  open_time: 
+  close_time: 
+
+two:
+  name: MyString
+  street: MyString
+  postcode: MyString
+  city: MyString
+  state: MyString
+  description: MyString
+  latitude: 9.99
+  longitude: 9.99
+  min_age: 
+  max_age: 
+  has_waitlist: false
+  average_waitlist_time: 
+  group_size: 
+  price_per_week: 9.99
+  price_per_month: 9.99
+  birth_certificate_required: false
+  open_time: 
+  close_time: 
