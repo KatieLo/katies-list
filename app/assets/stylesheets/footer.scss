@@ -1,0 +1,17 @@
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: $cinder; 
+    a {
+    	color: $default-text;
+    	&:hover, &:active {
+    		color: $default-text;
+    	}
+    }
+    .fa-heart {
+    	color: tint($dayroom-yellow, 15);
+    }
+    .fa-heart-o {
+        color: tint($dayroom-yellow, 50);
+    }
+}

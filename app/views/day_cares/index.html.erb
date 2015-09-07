@@ -1,61 +1,25 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 filter">
+			<button class="btn btn-lg btn-danger">Filter</button>
+		</div>
+	</div>
 
-<h1>Listing Day Cares</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Street</th>
-      <th>Postcode</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Description</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th>Min age</th>
-      <th>Max age</th>
-      <th>Has waitlist</th>
-      <th>Average waitlist time</th>
-      <th>Group size</th>
-      <th>Price per week</th>
-      <th>Price per month</th>
-      <th>Birth certificate required</th>
-      <th>Open time</th>
-      <th>Close time</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @day_cares.each do |day_care| %>
-      <tr>
-        <td><%= day_care.name %></td>
-        <td><%= day_care.street %></td>
-        <td><%= day_care.postcode %></td>
-        <td><%= day_care.city %></td>
-        <td><%= day_care.state %></td>
-        <td><%= day_care.description %></td>
-        <td><%= day_care.latitude %></td>
-        <td><%= day_care.longitude %></td>
-        <td><%= day_care.min_age %></td>
-        <td><%= day_care.max_age %></td>
-        <td><%= day_care.has_waitlist %></td>
-        <td><%= day_care.average_waitlist_time %></td>
-        <td><%= day_care.group_size %></td>
-        <td><%= day_care.price_per_week %></td>
-        <td><%= day_care.price_per_month %></td>
-        <td><%= day_care.birth_certificate_required %></td>
-        <td><%= day_care.open_time %></td>
-        <td><%= day_care.close_time %></td>
-        <td><%= link_to 'Show', day_care %></td>
-        <td><%= link_to 'Edit', edit_day_care_path(day_care) %></td>
-        <td><%= link_to 'Destroy', day_care, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Day care', new_day_care_path %>
+	<div class="row">
+		<div class="col-xs-12 col-sm-7">
+			<% @day_cares.each do |day_care| %>
+			<div class="row">
+				<div class="col-xs-12">
+					<h3 class="daycare-name"><%= day_care.name %></h3>
+					
+					<%= day_care.description %>
+				</div>
+			</div>
+			<% end %>
+		</div>
+		<div class="col-xs-12 col-sm-5">
+			Map.
+		</div>
+	
+	</div>
+</div>
