@@ -5,20 +5,36 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-xs-12 col-md-7">
+	<div class="row" id="wrapper">
+		<div class="col-xs-12 col-md-7" id="listings">
 			<% @day_cares.each do |day_care| %>
 			<div class="row">
 				<div class="col-xs-12">
-					<h3 class="daycare-name"><%= day_care.name %></h3>
+					<div class="row">
+						<div class="col-xs-6">
+							<h3 class="daycare-name"><%= day_care.name %></h3>
+						</div>
+						<div class="col-xs-6">
+							<h6 class="street-address"><%= day_care.street %>, <%= day_care.city %></h6>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="street-view"></div>
+						</div>
+						<div class="col-xs-6">
+							<p><%= day_care.description %></p>
+						</div>
+						
+					</div>
+				
 					
-					<%= day_care.description %>
 				</div>
 			</div>
 			<% end %>
 		</div>
-		<div class="hidden-xs col-md-5">
-			Map.
+		<div class="hidden-xs col-md-5" id="map">
+			
 		</div>
 	
 	</div>
