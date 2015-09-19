@@ -4,6 +4,7 @@
 // On document ready, get a starter Google map to show while we wait for filters 
 $(function() {
 	getInitialMap();
+	React.render(<Test />, document.getElementById('test'));
 });
 
 function getInitialMap() {
