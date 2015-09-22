@@ -5,6 +5,41 @@
 	text-align: center;
 }
 
+#filters {
+    margin-bottom: 50px;
+    .row {
+        background-color:white;
+    }
+    label {
+        margin-bottom: 10px; 
+        text-align: center;
+        @media (min-width: $screen-sm) {
+            text-align: left;
+        }
+    }
+    .filter-label {
+        position: relative;
+        padding-top: 15px;
+        padding-bottom: 35px;
+        border-top: 1px solid #dce0e0;
+    }
+    .filter-label.last {
+        border-bottom: 1px solid #dce0e0; 
+        padding-bottom: 15px;
+    }
+    span {
+        position: absolute; 
+        font-size: 12px;
+        margin-top: 5px
+    }
+    span.label-min {
+        left: 10px;
+    }
+    span.label-max {
+        right: 10px;
+    }
+}
+
 input[type=range] {
     -webkit-appearance: none;
     /* fix for FF unable to apply focus style bug  */
@@ -36,7 +71,7 @@ input[type=range]:focus {
 }
 
 input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #ccc;
+    background: tint($rose, 15);
 }
 
 /* Slider for firefox */
@@ -87,6 +122,7 @@ h3.daycare-name {
 	overflow:hidden;
     height: auto;
     position:relative;
+    background-color: #F7F7F7;
 }
 
 #listings {

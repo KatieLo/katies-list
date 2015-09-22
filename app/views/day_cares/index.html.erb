@@ -11,52 +11,63 @@
 	</div>
 
 	<div class="row" id="wrapper">
-		<div class="col-xs-12 col-md-7" id="listings">
-			<div class="row">
-				<div class="hidden-xs col-sm-6 col-lg-2 text-center filter-label">
-					<label>Age Range (Months)</label>
-					<!-- age in months -->
-					<input id="age-range" type="range" min="1" max="60" step="1" />
-
-				</div>
-			</div>
-			<div class="row">
-				<div class="hidden-xs col-sm-6 col-lg-2 text-center filter-label">
-					<label>Price Range ($100s)</label>
-					<!-- age in months -->
-					<input id="age-range" type="range" min="500" max="5000" step="100" />
-
-				</div>
-
-			</div>
-
-			<% @day_cares.each do |day_care| %>
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="row">
-						<div class="col-xs-6">
-							<h3 class="daycare-name"><%= day_care.name %></h3>
-						</div>
-						<div class="col-xs-6">
-							<h6 class="street-address"><%= day_care.street %>, <%= day_care.city %></h6>
-						</div>
+		<div class="col-xs-12 col-sm-5 col-md-7">
+			<div id="filters">
+				<div class="row">
+					<div class="hidden-xs col-md-8 filter-label">
+						<label>Age Range (Months)</label>
+						<!-- age in months -->
+						<input id="age-range" type="range" min="1" max="60" step="1" />
+						<span class="label-min">1 month</span>
+						<span class="label-max">60 months (5 years)</span>
 					</div>
-					<div class="row">
-						<div class="col-xs-6">
-							<div class="street-view"></div>
+				</div>
+				<div class="row">
+					<div class="hidden-xs col-md-8 filter-label">
+						<label>Price Range ($100s)</label>
+						<!-- price in $100s -->
+						<input id="age-range" type="range" min="500" max="5000" step="100" />
+						<span class="label-min">$10</span>
+						<span class="label-max">$2000</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="hidden-xs col-md-8 filter-label last">
+						<label>Only show daycares with no waitlist</label>
+						<input id="age-range" type="checkbox"/>
+					</div>
+				</div>
+			</div>
+
+			<div id="listings">
+				<% @day_cares.each do |day_care| %>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="row">
+							<div class="col-xs-6">
+								<h3 class="daycare-name"><%= day_care.name %></h3>
+							</div>
+							<div class="col-xs-6">
+								<h6 class="street-address"><%= day_care.street %>, <%= day_care.city %></h6>
+							</div>
 						</div>
-						<div class="col-xs-6">
-							<p><%= day_care.description %></p>
+						<div class="row">
+							<div class="col-xs-6">
+								<div class="street-view"></div>
+							</div>
+							<div class="col-xs-6">
+								<p><%= day_care.description %></p>
+							</div>
+							
 						</div>
+					
 						
 					</div>
-				
-					
 				</div>
+				<% end %>
 			</div>
-			<% end %>
 		</div>
-		<div class="hidden-xs col-md-5" id="map">
+		<div class="hidden-xs col-sm-7 col-md-5" id="map">
 			
 		</div>
 	
