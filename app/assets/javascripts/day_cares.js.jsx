@@ -9,9 +9,7 @@ $(function() {
 
 function getInitialMap() {
 	var address = $(".street-address").html();
-	console.log("address", address);
 	var src = "https://maps.googleapis.com/maps/api/streetview?location=" + address +"&size=600x400";
-	console.log("src", src);
     $('#map').css({"background-image":"url('"+ src +"')", 'background-repeat': 'no-repeat', 'background-size' : 'cover'});
 
     $('.streetview-img').css({"background-image":"url('"+ src +"')", 'background-repeat': 'no-repeat', 'background-size' : 'cover'});
