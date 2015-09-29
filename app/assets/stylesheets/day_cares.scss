@@ -6,7 +6,7 @@
 }
 
 #filters {
-    margin-bottom: 50px;
+    margin-bottom: 0;
     .row {
         background-color:white;
     }
@@ -115,6 +115,8 @@ input[type=range]:focus::-moz-range-track {
 	
 h3.daycare-name {
 	color: $apple;
+    margin-top: 30px;
+    font-weight: 200;
 }
 
 
@@ -125,8 +127,8 @@ h3.daycare-name {
     background-color: #F7F7F7;
 }
 
-.left-side {
-    // TODO get height in JS
+#left-side {
+    // Starting height. Gets overwritten in JS
     height: 500px;
     overflow-y: scroll;
 }
@@ -141,8 +143,10 @@ h3.daycare-name {
 }
 
 .streetview-img {
-    height: 250px;
-    @media (min-width: $screen-sm) {
-        height: 180px;  
+    img {
+        height: 250px;
+        @media (min-width: $screen-sm) {
+            height: 180px;  
+        }
     }
 }

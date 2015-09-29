@@ -8,7 +8,7 @@ var DayCareListings = React.createClass({
     });
 
     return (
-      <div className="DayCareList">
+      <div className="DayCareList" id="listings">
         {dayCareNodes}
       </div>
       );
