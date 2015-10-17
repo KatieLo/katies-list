@@ -14,7 +14,7 @@
  	this.renderReact(); // to render with loading state
  	setTimeout(function(){
  		this.getDataAndRender()
- 	}.bind(this), 4000); // get data and render with data
+ 	}.bind(this), 0); // get data and render with data
  };
 
 /*
