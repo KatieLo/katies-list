@@ -1,10 +1,12 @@
-//Place all the behaviors and hooks related to the matching controller here.
-//All this logic will automatically be available in application.js.
+/*
+* Global variable
+*/
+var listingsController;
 
-// On document ready
 $(function() {
-	// make map and listings the right height
-	
+	// intitialize react controller
+	listingsController = new listingsController();
+	resizeContainerHeights();
 });
 
 // Whenever the window height changes, we must resize the map and listings

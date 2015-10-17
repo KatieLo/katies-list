@@ -1,6 +1,5 @@
-// Place all the styles related to the DayCares controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
 .filter {
 	text-align: center;
 }
@@ -112,12 +111,42 @@ input[type=range]:focus::-moz-range-track {
     width: 100%;
     border-radius: 2px;
 }
-	
-h3.daycare-name {
-	color: $apple;
-    margin-top: 30px;
-    font-weight: 200;
+
+.dayCareItem {
+    /* Loading states */
+    .h3-bar {
+        width: 200px;
+        height: 24px;
+        background-color: tint($apple, 75);
+        margin-top: 30px;
+    }
+
+    .h6-bar {
+        width: 150px;
+        height: 16px;
+        background-color: tint($default-text, 75);
+        margin-top: 30px;
+    }
+
+    .p-bar {
+        width: 200px;
+        height: 12px;
+        background-color: tint($default-text, 85);
+    }
+
+    .blank-img {
+        height: 180px;
+        width: 270px;
+        background-color: shade($fawn, 10);
+    }
+
+    h3.daycare-name {
+        color: $apple;
+        margin-top: 30px;
+        font-weight: 200;
+    }
 }
+
 
 
 #wrapper {
@@ -133,9 +162,6 @@ h3.daycare-name {
     overflow-y: scroll;
 }
 
-#listings {
-	float:left;
-}
 #map {
 	height:500px;
     position:absolute;
