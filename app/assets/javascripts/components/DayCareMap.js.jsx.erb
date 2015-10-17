@@ -40,6 +40,8 @@ var DayCareMap = React.createClass({
 
 	componentWillReceiveProps: function(nextProps) {
 		var map = this.state.map;
+		var bounds = new google.maps.LatLngBounds();
+		var iconImage = "<%= image_path('icon.png') %>";
 		if (nextProps.isLoading !== this.props.isLoading) {
 			if(nextProps.isLoading) {
 				map.set('navigationControl', false);
@@ -51,6 +53,25 @@ var DayCareMap = React.createClass({
 				map.set('scaleControl', true);
 				map.set('draggable', true);
 				map.set('styles', [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}]);
+				// get marker for each daycare
+				for (var i = 0; i < nextProps.data.length; i++) {
+					var lat = parseFloat(nextProps.data[i].latitude);
+					var long = parseFloat(nextProps.data[i].longitude);
+					var marker = new google.maps.Marker({
+					    position: {lat: lat, lng: long},
+					    map: map,
+					    icon: iconImage,
+					    title: nextProps.data[i].name
+					  });
+					marker.setMap(map);
+					//extend the bounds to include each marker's position
+  					bounds.extend(marker.position);
+  					//now fit the map to the newly inclusive bounds
+					map.fitBounds(bounds);
+					// restore the zoom level after the map is done scaling
+					map.setZoom(12);
+				}
+				
 			}
 		}
 	},

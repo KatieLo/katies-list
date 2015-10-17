@@ -20,7 +20,6 @@ $(window).resize(function() {
 function resizeContainerHeights() {
 	// height of the window
 	var windowHeight = $(window).height();
-	console.log(windowHeight);
 	// calculate height of the header, including margin
 	var headerHeight = $('#header').outerHeight(true);
 	// Mapheight is the height we want the map (and lisitngs to be)
