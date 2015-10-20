@@ -11,7 +11,7 @@ var ListingsAndMapWrapper = React.createClass({
 					<DayCareListings data={this.props.data} isLoading={this.props.isLoading}/>
 				</div>
 
-				<DayCareMap data={this.props.data} isLoading={this.props.isLoading}/>
+				<DayCareMap data={this.props.data} isLoading={this.props.isLoading} highlightedDayCareId={this.props.highlightedDayCareId}/>
 			</div>
 		);
 	}

@@ -12,9 +12,9 @@ var DayCareListings = React.createClass({
     } else {
       dayCareNodes = this.props.data.map(function (daycare, index) {
         return (
-          <Daycare key={daycare.id} name={daycare.name} description={daycare.description} street={daycare.street}  city={daycare.city} key={index} />
+          <Daycare data={daycare} highlightedDayCareId={this.props.highlightedDayCareId} />
           );
-      });
+      }.bind(this));
     }
     
 

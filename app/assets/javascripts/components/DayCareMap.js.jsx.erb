@@ -1,34 +1,38 @@
 var DayCareMap = React.createClass({
 	getInitialState: function() {
 		return {
-			map: null
+			map: null,
+			markers: {} // empty associative array for map markers
 		}
 	},
 
+	/*
+	 * Runs whenever new component is mounted
+	 */
 	componentDidMount: function() {
 		var myLatlng;
 		var mapOptions;
-		if (this.props.isLoading) {
+		if (this.props.isLoading) { // show map in loading state (b&w)
 			myLatlng = new google.maps.LatLng(37.4292, -122.1381);
 			mapOptions = {
 				zoom: 12,
 				center: myLatlng,
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
 				navigationControl: false,
-			    scaleControl: false,
-			    draggable: false,
-			    mapTypeControl: false,
+				scaleControl: false,
+				draggable: false,
+				mapTypeControl: false,
 				styles: [{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}]
 			};
-		} else {
+		} else { // show map in already loaded state (colour)
 			myLatlng = new google.maps.LatLng(37.4292, -122.1381);
 			mapOptions = {
 				zoom: 12,
 				center: myLatlng,
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
 				navigationControl: true,
-			    scaleControl: true,
-			    draggable: true,
+				scaleControl: true,
+				draggable: true,
 				styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}]
 			};
 		}
@@ -38,41 +42,112 @@ var DayCareMap = React.createClass({
 		this.setState({map: newMap});
 	},
 
+	/*
+	 * Runs whenever new props are received (excl. first time)
+	 * Used to check if the map should swicth from loading state to 
+	 * rendered state
+	 */
 	componentWillReceiveProps: function(nextProps) {
 		var map = this.state.map;
-		var bounds = new google.maps.LatLngBounds();
-		var iconImage = "<%= image_path('icon.png') %>";
-		if (nextProps.isLoading !== this.props.isLoading) {
-			if(nextProps.isLoading) {
-				map.set('navigationControl', false);
-				map.set('scaleControl', false);
-				map.set('draggable', false);
-				map.set('styles', [{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}]);
-			} else {
-				map.set('navigationControl', true);
-				map.set('scaleControl', true);
-				map.set('draggable', true);
-				map.set('styles', [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}]);
-				// get marker for each daycare
-				for (var i = 0; i < nextProps.data.length; i++) {
-					var lat = parseFloat(nextProps.data[i].latitude);
-					var long = parseFloat(nextProps.data[i].longitude);
-					var marker = new google.maps.Marker({
-					    position: {lat: lat, lng: long},
-					    map: map,
-					    icon: iconImage,
-					    title: nextProps.data[i].name
-					  });
-					marker.setMap(map);
-					//extend the bounds to include each marker's position
-  					bounds.extend(marker.position);
-  					//now fit the map to the newly inclusive bounds
-					map.fitBounds(bounds);
-					// restore the zoom level after the map is done scaling
-					map.setZoom(12);
-				}
-				
+		// check if the loading props has changed. 
+		if(nextProps.isLoading) {
+			// set loading style map
+			map.set('navigationControl', false);
+			map.set('scaleControl', false);
+			map.set('draggable', false);
+			map.set('styles', [{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}]);
+		} else {
+			// set loaded (colour, draggable) map
+			map.set('navigationControl', true);
+			map.set('scaleControl', true);
+			map.set('draggable', true);
+			map.set('styles', [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}]);
+			
+			// Add map markers to the map
+			this.addIconsToMap(nextProps);
+
+			// If the map has just reloaded, set the bounds
+			if (nextProps.isLoading !== this.props.isLoading) {
+				this.setMapBounds();
 			}
+ 		}
+	},
+
+	/*
+	 * Adds a map marker to the map for each day care 
+	 * Parameters: nextProps, from componentWillReceiveProps
+	 */
+	addIconsToMap: function(nextProps) {
+		var updatedMarkersArray = this.state.markers;
+		var map = this.state.map;
+		var iconImage;
+		// get marker for each daycare
+		for (var i = 0; i < nextProps.data.length; i++) {
+			// check if we need to add a new marker (if didn;t exist before or is being hovered on)
+			if (updatedMarkersArray[nextProps.data[i].id]) { // if this bucket exists, a marker for this day care exists
+				// it exists: should it change colour? 
+				if (nextProps.highlightedDayCareId === nextProps.data[i].id) {
+					// make the marker blue
+					var marker = updatedMarkersArray[nextProps.data[i].id];
+					marker.setIcon("<%= image_path('icon2.png') %>");
+				// If the old highlightedId is this one, change it back to normal red icon
+				} else if (this.props.highlightedDayCareId === nextProps.data[i].id) {
+					// make the marker blue
+					var marker = updatedMarkersArray[nextProps.data[i].id];
+					marker.setIcon("<%= image_path('icon.png') %>");
+				// If nothing has changed about this icon, don't redraw it
+				} else {
+					continue; 
+				}
+			}
+			// Set the latitude and longitude for the map marker
+			var lat = parseFloat(nextProps.data[i].latitude);
+			var long = parseFloat(nextProps.data[i].longitude);
+			
+			// If the newly update data's highlighted day care is the current daycare, show blue map icon
+			if (nextProps.highlightedDayCareId === nextProps.data[i].id) {
+				iconImage = "<%= image_path('icon2.png') %>";
+			} else {
+				iconImage = "<%= image_path('icon.png') %>";
+			}
+			// Add the map market for this day care
+			var marker = new google.maps.Marker({
+				position: {lat: lat, lng: long},
+				map: map,
+				icon: iconImage,
+				title: nextProps.data[i].name,
+			});
+			// add new marker to markers associative array so easy to check
+			updatedMarkersArray[nextProps.data[i].id] = marker;
+			marker.setMap(map);
+		}
+		// set state of markers array to new markers 
+		this.setState({markers: updatedMarkersArray});
+
+	},
+
+	/*
+	 * Centers the map around the map markers that are in the state
+	 * this.state.markers
+	 */
+	setMapBounds: function() {
+		var map = this.state.map;
+		var markersArray = this.state.markers;
+		var bounds = new google.maps.LatLngBounds();
+		// Loop through all markers to set center and zoom
+		for (var markerId in markersArray) {
+			// make sure not getting keys from object.prototype
+			if (markersArray.hasOwnProperty(markerId) ) {
+				// get the marker
+				marker = markersArray[markerId];
+				//extend the bounds to include each marker's position
+				bounds.extend(marker.position);
+				//now fit the map to the newly inclusive bounds
+				map.fitBounds(bounds);
+				// restore the zoom level after the map is done scaling
+				map.setZoom(12);
+			}
+			
 		}
 	},
 

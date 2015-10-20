@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20150803025115) do
 
   create_table "day_cares", force: :cascade do |t|
     t.string   "name"
+    t.string   "website"
     t.string   "street"
     t.string   "postcode"
     t.string   "city"

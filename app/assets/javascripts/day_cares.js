@@ -5,7 +5,7 @@ var listingsController;
 
 $(function() {
 	// intitialize react controller
-	listingsController = new listingsController();
+	listingsController = new ListingsController();
 	resizeContainerHeights();
 });
 

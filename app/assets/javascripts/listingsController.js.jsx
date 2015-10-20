@@ -7,11 +7,13 @@
  * Constructor instantiates the React components 
  *
  */
- var listingsController = function(){
+ var ListingsController = function(){
  	this.allListings = [];
  	this.filteredListings = [];
  	this.isLoading = true;
+ 	this.highlightedDayCareId = null;
  	this.renderReact(); // to render with loading state
+ 	// Just so that we can see the loading state
  	setTimeout(function(){
  		this.getDataAndRender()
  	}.bind(this), 2000); // get data and render with data
@@ -20,19 +22,30 @@
 /*
  * Gets the data
  */
-listingsController.prototype.getDataAndRender = function() {
+ListingsController.prototype.getDataAndRender = function() {
 	$.get( '/day_cares.json', function( data ) {
-	  this.allListings = data;
-	  // because initially there is no filtering 
-	  this.filteredListings = data;
-	  this.isLoading = false;
-	  this.renderReact();
+		this.allListings = data;
+		// because initially there is no filtering 
+		this.filteredListings = data;
+		this.isLoading = false;
+		this.renderReact();
 	}.bind(this));
-}
+};
 
 /*
- * render react components 
+ * Set a daycare ID to be the highlighted day care
+ * Parameter: id of the daycare that should be highlighted 
+ * Re-renders the React components because a day care is now highlighted.
  */
-listingsController.prototype.renderReact = function() {
- React.render(<ListingsAndMapWrapper data={this.filteredListings} isLoading={this.isLoading}/>, document.getElementById('page'));
-}
+ListingsController.prototype.setHighlightedDayCareId = function(dayCareIdToHighlight) {
+	this.highlightedDayCareId = dayCareIdToHighlight;
+	this.renderReact();
+};
+
+
+/*
+ * Render react components 
+ */
+ListingsController.prototype.renderReact = function() {
+	React.render(<ListingsAndMapWrapper data={this.filteredListings} isLoading={this.isLoading} highlightedDayCareId={this.highlightedDayCareId}/>, document.getElementById('page'));
+};

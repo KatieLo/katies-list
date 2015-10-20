@@ -1,7 +1,9 @@
 var Daycare = React.createClass({
+	onHover: function() {
+		listingsController.setHighlightedDayCareId(this.props.data.id);
+	},
 
 	render: function() {
-		var backUpImage = "https://maps.googleapis.com/maps/api/streetview?location=" + this.props.street + "," + this.props.city + "&size=600x400";
 		if (this.props.isLoading) {
 			return (
 			<div className="row dayCareItem">
@@ -28,12 +30,13 @@ var Daycare = React.createClass({
 			</div>
 			)
 		} else {
+			var backUpImage = "https://maps.googleapis.com/maps/api/streetview?location=" + this.props.data.street + "," + this.props.data.city + "&size=600x400";
 			return (
-			<div className="row dayCareItem">
+			<div className="row dayCareItem" onMouseEnter={this.onHover}>
 				<div className="col-xs-12">
 					<div className="row">
 						<div className="col-xs-12">
-							<h3 className="daycare-name">{this.props.name}</h3>
+							<h3 className="daycare-name">{this.props.data.name}</h3>
 						</div>
 					</div>
 					<div className="row">
@@ -43,8 +46,8 @@ var Daycare = React.createClass({
 							</div>
 						</div>
 						<div className="col-xs-12 col-md-6">
-							<h6 className="street-address">{this.props.street},{this.props.city}</h6>
-							<p>{this.props.description}</p>
+							<h6 className="street-address">{this.props.data.street},{this.props.data.city}</h6>
+							<p>{this.props.data.description}</p>
 						</div>
 					</div>	
 				</div>
