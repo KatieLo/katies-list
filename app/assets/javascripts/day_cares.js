@@ -1,5 +1,5 @@
 /*
-* Global variable
+* Global variable (must be accesible by all the components)
 */
 var listingsController;
 
@@ -27,14 +27,3 @@ function resizeContainerHeights() {
 	$('#map').css('height', mapHeight + 'px');
 	$('#left-side').css('height', mapHeight + 'px');
 }
-
-/*
-controller {
-	initialize 	-> renders all components in loading state
-				-> ajax call to get data
-				-> store in local vars
-				-> call this.render
-	filter_by_filters -> filters data then this.render
-	filter_by_map_coords -> filters data then this.render
-	render -> React.render
-}*/

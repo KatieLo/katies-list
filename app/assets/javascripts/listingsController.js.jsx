@@ -1,11 +1,12 @@
 /*
- *
- *
+ * The ListingsController fetches the data 
+ * and handles rendering and re-rendering 
+ * of the React conponents 
+ * when a user interaction requires an update.
  */
 
 /*
  * Constructor instantiates the React components 
- *
  */
  var ListingsController = function(){
  	this.allListings = [];
@@ -13,7 +14,7 @@
  	this.isLoading = true;
  	this.highlightedDayCareId = null;
  	this.renderReact(); // to render with loading state
- 	// Just so that we can see the loading state
+ 	// Just to actually see the loading state :)
  	setTimeout(function(){
  		this.getDataAndRender()
  	}.bind(this), 2000); // get data and render with data
@@ -33,7 +34,7 @@ ListingsController.prototype.getDataAndRender = function() {
 };
 
 /*
- * Set a daycare ID to be the highlighted day care
+ * Set a day care ID to be the highlighted day care
  * Parameter: id of the daycare that should be highlighted 
  * Re-renders the React components because a day care is now highlighted.
  */
@@ -44,7 +45,7 @@ ListingsController.prototype.setHighlightedDayCareId = function(dayCareIdToHighl
 
 
 /*
- * Render react components 
+ * Render the react components 
  */
 ListingsController.prototype.renderReact = function() {
 	React.render(<ListingsAndMapWrapper data={this.filteredListings} isLoading={this.isLoading} highlightedDayCareId={this.highlightedDayCareId}/>, document.getElementById('page'));
