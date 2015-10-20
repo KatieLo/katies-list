@@ -139,7 +139,10 @@ input[type=range]:focus::-moz-range-track {
         width: 270px;
         background-color: shade($fawn, 10);
     }
-
+    h6 {
+        font-size: 15px;
+        text-transform: capitalize;
+    }
     h3.daycare-name {
         color: $apple;
         margin-top: 30px;
@@ -169,10 +172,11 @@ input[type=range]:focus::-moz-range-track {
 }
 
 .streetview-img {
+    /*
     img {
         height: 250px;
         @media (min-width: $screen-sm) {
             height: 180px;  
         }
-    }
+    }*/
 }

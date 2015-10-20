@@ -42,11 +42,11 @@ var Daycare = React.createClass({
 					<div className="row">
 						<div className="col-xs-12 col-md-6">
 							<div className="streetview-img">
-								<img src={backUpImage} />
+								<img src={backUpImage} className="img-responsive"/>
 							</div>
 						</div>
 						<div className="col-xs-12 col-md-6">
-							<h6 className="street-address">{this.props.data.street},{this.props.data.city}</h6>
+							<h6 className="street-address">{this.props.data.street}, {this.props.data.city}</h6>
 							<p>{this.props.data.description}</p>
 						</div>
 					</div>	
