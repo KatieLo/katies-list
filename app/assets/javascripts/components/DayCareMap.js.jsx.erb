@@ -40,6 +40,7 @@ var DayCareMap = React.createClass({
 		// Use Google JS Stuff to init a map in the div
 		var newMap = new google.maps.Map(document.getElementById("map"),
 		    mapOptions);
+			
 		this.setState({map: newMap});
 	},
 
@@ -84,21 +85,24 @@ var DayCareMap = React.createClass({
 		var iconImage;
 		// get marker for each daycare
 		for (var i = 0; i < nextProps.data.length; i++) {
-			// check if we need to add a new marker (if didn;t exist before or is being hovered on)
+			// check if we need to add a new marker (if didn't exist before or is being hovered on)
 			if (updatedMarkersArray[nextProps.data[i].id]) { // if this bucket exists, a marker for this day care exists
 				if (nextProps.highlightedDayCareId === nextProps.data[i].id) { // If map marker should change colour? 
 					// make the marker blue
 					var marker = updatedMarkersArray[nextProps.data[i].id];
 					marker.setIcon('<%= image_path("icon2.png") %>');
+					continue; 
 				// If the old highlightedId is this day care id, change it back to normal red icon
 				} else if (this.props.highlightedDayCareId === nextProps.data[i].id) {
 					// make the marker blue
 					var marker = updatedMarkersArray[nextProps.data[i].id];
 					marker.setIcon('<%= image_path("icon.png") %>');
+					continue; 
 				} else { // Nothing has changed about this map marker, don't redraw it
 					continue; 
 				}
 			}
+
 			// Set the latitude and longitude for the map marker
 			var lat = parseFloat(nextProps.data[i].latitude);
 			var long = parseFloat(nextProps.data[i].longitude);
@@ -115,7 +119,14 @@ var DayCareMap = React.createClass({
 				map: map,
 				icon: iconImage,
 				title: nextProps.data[i].name,
+				id: nextProps.data[i].id
 			});
+
+			// Add listener to the map icons
+			marker.addListener('mouseover', function() {
+				listingsController.setHighlightedDayCareId(this.id);
+			});
+
 			// add new marker to markers an associative array so it's easy to check
 			updatedMarkersArray[nextProps.data[i].id] = marker;
 			marker.setMap(map);

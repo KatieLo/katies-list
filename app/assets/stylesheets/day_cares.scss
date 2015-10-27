@@ -113,6 +113,7 @@ input[type=range]:focus::-moz-range-track {
 }
 
 .dayCareItem {
+    padding-bottom: 10px;
     /* Loading states */
     .h3-bar {
         width: 200px;
@@ -148,6 +149,13 @@ input[type=range]:focus::-moz-range-track {
         margin-top: 30px;
         font-weight: 200;
     }
+    &.highlighted {
+        background-color: #F1EFEF;
+        h3 {
+            font-weight: 400;
+            color: tint($apple, 15);
+        }
+    }
 }
 
 
@@ -156,7 +164,7 @@ input[type=range]:focus::-moz-range-track {
 	overflow:hidden;
     height: auto;
     position:relative;
-    background-color: #F7F7F7;
+    background-color: #FbFbFb;
 }
 
 #left-side {
@@ -169,14 +177,4 @@ input[type=range]:focus::-moz-range-track {
 	height:500px;
     position:absolute;
     right:0px;
-}
-
-.streetview-img {
-    /*
-    img {
-        height: 250px;
-        @media (min-width: $screen-sm) {
-            height: 180px;  
-        }
-    }*/
 }

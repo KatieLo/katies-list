@@ -8,10 +8,10 @@ var ListingsAndMapWrapper = React.createClass({
 			<div className="row" id="wrapper">
 				<div className="col-xs-12 col-sm-5 col-md-7" id="left-side">
 					<DayCareFilters data={this.props.data} isLoading={this.props.isLoading} />
-					<DayCareListings data={this.props.data} isLoading={this.props.isLoading}/>
+					<DayCareListings data={this.props.data} isLoading={this.props.isLoading} highlightedDayCareId={this.props.highlightedDayCareId} />
 				</div>
 
-				<DayCareMap data={this.props.data} isLoading={this.props.isLoading} highlightedDayCareId={this.props.highlightedDayCareId}/>
+				<DayCareMap data={this.props.data} isLoading={this.props.isLoading} highlightedDayCareId={this.props.highlightedDayCareId} />
 			</div>
 		);
 	}

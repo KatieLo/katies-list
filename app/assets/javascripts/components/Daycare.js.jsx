@@ -30,9 +30,15 @@ var Daycare = React.createClass({
 			</div>
 			)
 		} else {
+			var classes = '';
+			if (this.props.highlightedDayCareId === this.props.data.id) {
+				classes = 'row dayCareItem highlighted';
+			} else {
+				classes = 'row dayCareItem';
+			}
 			var backUpImage = "https://maps.googleapis.com/maps/api/streetview?location=" + this.props.data.street + "," + this.props.data.city + "&size=600x400";
 			return (
-			<div className="row dayCareItem" onMouseEnter={this.onHover}>
+			<div className={classes} onMouseEnter={this.onHover}>
 				<div className="col-xs-12">
 					<div className="row">
 						<div className="col-xs-12">
