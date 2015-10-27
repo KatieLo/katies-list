@@ -8,23 +8,30 @@
     margin-bottom: 0;
     .row {
         background-color:white;
+        border-bottom: 1px solid #dce0e0; 
+        &.last {
+            border-bottom: 1px solid #dce0e0; 
+        }
     }
     label {
         margin-bottom: 10px; 
-        text-align: center;
-        @media (min-width: $screen-sm) {
-            text-align: left;
-        }
     }
     .filter-label {
         position: relative;
         padding-top: 15px;
         padding-bottom: 35px;
-        border-top: 1px solid #dce0e0;
     }
     .filter-label.last {
-        border-bottom: 1px solid #dce0e0; 
         padding-bottom: 15px;
+    }
+    .filter {
+        width: 80%;
+        text-align: left;
+         @media (min-width:992px) {
+            text-align: center;
+            width: 70%;
+        }
+        margin: auto;
     }
     span {
         position: absolute; 
@@ -32,74 +39,87 @@
         margin-top: 5px
     }
     span.label-min {
-        left: 10px;
+        left: 50px;
+         @media (min-width:992px) {
+            left: 100px;
+        }
+        
     }
     span.label-max {
-        right: 10px;
+        right: 50px;
+        @media (min-width:992px) {
+            right: 100px;
+        }
+    }
+
+    input[type=range] {
+        -webkit-appearance: none;
+        /* fix for FF unable to apply focus style bug  */
+        border: 1px solid white;
+        /* Specific width is required for Firefox. */
+        width: 100%;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 300px;
+        height: 5px;
+        background: $rose;
+        border: none;
+        border-radius: 3px;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        background: shade($dayroom-yellow, 5);
+        margin-top: -4px;
+    }
+
+    input[type=range]:focus {
+        outline: none;
+    }
+
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: tint($rose, 15);
+    }
+
+    /* Slider for firefox */
+
+    input[type=range]::-moz-range-track {
+        width: 300px;
+        height: 5px;
+        background: $rose;
+        border: none;
+        border-radius: 3px;
+    }
+
+    input[type=range]::-moz-range-thumb {
+        border: none;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        background: shade($dayroom-yellow, 5);
+    }
+
+    /*hide the outline behind the border*/
+    input[type=range]:-moz-focusring{
+        outline: 1px solid white;
+        outline-offset: -1px;
+    }
+
+    input[type=range]:focus::-moz-range-track {
+        background: #ccc;
+    }
+
+    input[type=checkbox] {
+        margin-right: 8px;
     }
 }
 
-input[type=range] {
-    -webkit-appearance: none;
-    /* fix for FF unable to apply focus style bug  */
-    border: 1px solid white;
-    /* Specific width is required for Firefox. */
-    width: 100%;
-}
 
-input[type=range]::-webkit-slider-runnable-track {
-    width: 300px;
-    height: 5px;
-    background: $rose;
-    border: none;
-    border-radius: 3px;
-}
-
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: none;
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background: shade($dayroom-yellow, 5);
-    margin-top: -4px;
-}
-
-input[type=range]:focus {
-    outline: none;
-}
-
-input[type=range]:focus::-webkit-slider-runnable-track {
-    background: tint($rose, 15);
-}
-
-/* Slider for firefox */
-
-input[type=range]::-moz-range-track {
-    width: 300px;
-    height: 5px;
-    background: $rose;
-    border: none;
-    border-radius: 3px;
-}
-
-input[type=range]::-moz-range-thumb {
-    border: none;
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background: shade($dayroom-yellow, 5);
-}
-
-/*hide the outline behind the border*/
-input[type=range]:-moz-focusring{
-    outline: 1px solid white;
-    outline-offset: -1px;
-}
-
-input[type=range]:focus::-moz-range-track {
-    background: #ccc;
-}
 
 .btn.btn-primary {
 	border-color: shade($rose, 10);
