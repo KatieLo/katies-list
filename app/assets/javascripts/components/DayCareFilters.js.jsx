@@ -1,4 +1,14 @@
 var DayCareFilters = React.createClass({
+	getInitialState: function() {
+		return {
+			waitlistOnly: false,
+		}
+	},
+
+	filterByWaitlist: function() {
+		listingsController.filterByWaitlist();
+		this.setState({waitlistOnly: true}); // not quite sure how to go from here...
+	},
 
 	render: function() {
 
@@ -27,7 +37,7 @@ var DayCareFilters = React.createClass({
 				<div className="row">
 					<div className="hidden-xs col-md-12 filter-label last">
 						<div className="filter">
-							<input id="age-range" type="checkbox"/>
+							<input id="age-range" type="checkbox" onClick={this.filterByWaitlist}/>
 							<label>Only show daycares with no waitlist</label>
 						</div>
 					</div>
