@@ -11,7 +11,6 @@ var DayCareFilters = React.createClass({
 	},
 
 	render: function() {
-
 		return (
 			<div id="filters">
 				<div className="row">
