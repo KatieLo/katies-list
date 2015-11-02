@@ -12,6 +12,9 @@ var ListingsStore = {
     minPrice: Infinity, 
     maxPrice: 0,
     minAge: Infinity,
-    maxAge: 0
+    maxAge: 0,
+    currentAgeFilter: null,
+    currentPriceFilter: null, 
+    currentWaitlistFilter: null
   }
 };

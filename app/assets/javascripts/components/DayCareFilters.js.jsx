@@ -1,23 +1,34 @@
 var DayCareFilters = React.createClass({
 	getInitialState: function() {
 		return {
-			waitlistOnly: false,
+			noWaitlistOnly: false,
 		}
 	},
 
 	filterByWaitlist: function() {
-		listingsController.filterByWaitlist();
-		this.setState({waitlistOnly: true}); // not quite sure how to go from here...
+		var noWaitlistOnly = document.getElementById('waitlist').checked;
+		listingsController.setWaitlistFilter(noWaitlistOnly);
+		this.setState({noWaitlistOnly: noWaitlistOnly}); 
 	},
 
-	updatePriceLabel: function() {
+	filterByAge: function() {
+		var ageValue = this.refs.ageRange.getDOMNode().value;
+		listingsController.setAgeFilter(ageValue);
+		this.updateAgeLabel(ageValue);
+	},
+
+	filterByPrice: function() {
 		var priceValue = this.refs.priceRange.getDOMNode().value;
+		listingsController.setPriceFilter(priceValue);
+		this.updatePriceLabel(priceValue);
+	},
+
+	updatePriceLabel: function(priceValue) {
 		var priceValueText = ' $' + priceValue;
 		this.refs.priceLabel.getDOMNode().innerHTML = priceValueText;
 	},
 
-	updateAgeLabel: function() {
-		var ageValue = this.refs.ageRange.getDOMNode().value;
+	updateAgeLabel: function(ageValue) {
 		var ageValueText;
 		if (ageValue < 24) { // quote age in weeks
 			ageValueText = ' ' + ageValue + ' weeks';
@@ -43,7 +54,7 @@ var DayCareFilters = React.createClass({
 					<div className="hidden-xs col-md-12 filter-label">
 						<div className="filter">
 							<label>From what age do you need day care?</label><span ref="ageLabel"></span>
-							<input ref="ageRange" type="range" min={this.props.minAge} max={this.props.maxAge} step="1"  onChange={this.updateAgeLabel}/>
+							<input ref="ageRange" type="range" min={this.props.minAge} max={this.props.maxAge} step="1"  onChange={this.filterByAge}/>
 							<span className="slider-label label-min">{minAgeLabel}</span>
 							<span className="slider-label label-max">{maxAgeLabel}</span>	
 						</div>
@@ -53,7 +64,7 @@ var DayCareFilters = React.createClass({
 					<div className="hidden-xs col-md-12 filter-label">
 						<div className="filter">
 							<label>Max Price Per Month</label> <span ref="priceLabel"></span>
-							<input ref="priceRange" type="range" min={this.props.minPrice} max={this.props.maxPrice} step="10" onChange={this.updatePriceLabel}/>
+							<input ref="priceRange" type="range" min={this.props.minPrice} max={this.props.maxPrice} step="10" onChange={this.filterByPrice}/>
 							<span className="slider-label label-min">{minPriceLabel}</span>
 							<span className="slider-label label-max">{maxPriceLabel}</span>
 						</div>
@@ -62,7 +73,7 @@ var DayCareFilters = React.createClass({
 				<div className="row">
 					<div className="hidden-xs col-md-12 filter-label last">
 						<div className="filter">
-							<input id="age-range" type="checkbox" onClick={this.filterByWaitlist}/>
+							<input id="waitlist" type="checkbox" onClick={this.filterByWaitlist}/>
 							<label>Only show daycares with no waitlist</label>
 						</div>
 					</div>

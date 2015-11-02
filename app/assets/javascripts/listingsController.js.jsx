@@ -62,17 +62,59 @@ ListingsController.prototype.setHighlightedDayCareId = function(dayCareIdToHighl
 };
 
 /*
+ * Set waitlist filter
+ */
+ListingsController.prototype.setWaitlistFilter = function(noWaitlistOnly) {
+	ListingsStore.State.currentWaitlistFilter = noWaitlistOnly;
+	this.filter();
+}
+
+/*
+ * Set age filter
+ */
+ListingsController.prototype.setAgeFilter = function(minAge) {
+	ListingsStore.State.currentAgeFilter = minAge;
+	this.filter();
+}
+
+/*
+ * Set age filter
+ */
+ListingsController.prototype.setPriceFilter = function(maxPrice) {
+	ListingsStore.State.currentPriceFilter = maxPrice;
+	this.filter();
+}
+
+
+
+/*
  * Filter function for day cares with waitlist 
  * Toggles the filter for showing only day cares with/without waitlists
  */
-ListingsController.prototype.filterByWaitlist = function(dayCareIdToHighlight) {
+ListingsController.prototype.filter = function() {
 	// clear filters (for now - should be possible to have mutiple filters)
 	ListingsStore.State.filteredListings = [];
 	// add each day care item that doesn't have a waitlist to the filteredListings array
 	for (var i = 0; i < ListingsStore.State.allListings.length; i++) {
-		if (ListingsStore.State.allListings[i].has_waitlist === false) {
-			ListingsStore.State.filteredListings.push(ListingsStore.State.allListings[i]);
+		if (ListingsStore.State.currentWaitlistFilter) { // only show day cares with no waitlist 
+			if (ListingsStore.State.allListings[i].has_waitlist) { // has a waitlist, so skip this
+				continue;
+			}
 		}
+
+		if (ListingsStore.State.currentAgeFilter !== null) { // min age has been set
+			if (ListingsStore.State.allListings[i].min_age > ListingsStore.State.currentAgeFilter) { // has a min age that is older than required, so skip this
+				continue;
+			}
+		}
+
+		if (ListingsStore.State.currentPriceFilter !== null) { // max price has been set
+			if (ListingsStore.State.allListings[i].price_per_month > ListingsStore.State.currentPriceFilter) { // has a price that is more than the specified maximum price, so skip this
+				continue;
+			}
+		}
+
+		ListingsStore.State.filteredListings.push(ListingsStore.State.allListings[i]);
 	}
 	this.renderReact();
 };
