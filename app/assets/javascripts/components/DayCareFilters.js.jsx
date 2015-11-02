@@ -10,26 +10,52 @@ var DayCareFilters = React.createClass({
 		this.setState({waitlistOnly: true}); // not quite sure how to go from here...
 	},
 
+	updatePriceLabel: function() {
+		var priceValue = this.refs.priceRange.getDOMNode().value;
+		var priceValueText = ' $' + priceValue;
+		this.refs.priceLabel.getDOMNode().innerHTML = priceValueText;
+	},
+
+	updateAgeLabel: function() {
+		var ageValue = this.refs.ageRange.getDOMNode().value;
+		var ageValueText;
+		if (ageValue < 24) { // quote age in weeks
+			ageValueText = ' ' + ageValue + ' weeks';
+		} else if (ageValue < 104) { // quote age in months
+			ageValue = Math.round((ageValue/4), 1);
+			ageValueText = ' ' + ageValue + ' months';
+		} else { // quote age in years
+			ageValue = Math.round((ageValue/52), 1);
+			ageValueText = ' ' + ageValue + ' years';
+		}
+		this.refs.ageLabel.getDOMNode().innerHTML = ageValueText;
+	},
+
 	render: function() {
+		var minAgeLabel = 'From ' + this.props.minAge + ' weeks'; // starts very young (6 weeks) So weeks easier than month/years here
+		var maxAge =  (this.props.maxAge/52); // always at least 52 weeks. Easier to have 1.5 yrs than 73 weeks.
+		var maxAgeLabel = (maxAge) + ' years';
+		var minPriceLabel = '$' + this.props.minPrice;
+		var maxPriceLabel = '$' + this.props.maxPrice;
 		return (
 			<div id="filters">
 				<div className="row">
 					<div className="hidden-xs col-md-12 filter-label">
 						<div className="filter">
-							<label>Age Range (Months)</label>
-							<input id="age-range" type="range" min="1" max="60" step="1" />
-							<span className="label-min">1 month</span>
-							<span className="label-max">60 months (5 years)</span>
+							<label>From what age do you need day care?</label><span ref="ageLabel"></span>
+							<input ref="ageRange" type="range" min={this.props.minAge} max={this.props.maxAge} step="1"  onChange={this.updateAgeLabel}/>
+							<span className="slider-label label-min">{minAgeLabel}</span>
+							<span className="slider-label label-max">{maxAgeLabel}</span>	
 						</div>
 					</div>
 				</div>
 				<div className="row">
 					<div className="hidden-xs col-md-12 filter-label">
 						<div className="filter">
-							<label>Price Range ($100s)</label>
-							<input id="age-range" type="range" min="500" max="5000" step="100" />
-							<span className="label-min">$10</span>
-							<span className="label-max">$2000</span>
+							<label>Max Price Per Month</label> <span ref="priceLabel"></span>
+							<input ref="priceRange" type="range" min={this.props.minPrice} max={this.props.maxPrice} step="10" onChange={this.updatePriceLabel}/>
+							<span className="slider-label label-min">{minPriceLabel}</span>
+							<span className="slider-label label-max">{maxPriceLabel}</span>
 						</div>
 					</div>
 				</div>

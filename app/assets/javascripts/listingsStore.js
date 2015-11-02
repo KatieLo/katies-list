@@ -1,7 +1,6 @@
 /*
- * The listings store holds the data that gets defined on 
- * initialisation
- * 
+ * The listings store holds the data 
+ * that gets defined on initialisation
  */
 
 var ListingsStore = {
@@ -9,6 +8,10 @@ var ListingsStore = {
     allListings: [],
     filteredListings: [],
     isLoading: true,
-    highlightedDayCareId: null
+    highlightedDayCareId: null,
+    minPrice: Infinity, 
+    maxPrice: 0,
+    minAge: Infinity,
+    maxAge: 0
   }
 };

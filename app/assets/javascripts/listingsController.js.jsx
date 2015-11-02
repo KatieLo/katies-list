@@ -23,6 +23,27 @@
 ListingsController.prototype.getDataAndRender = function() {
 	$.get( '/day_cares.json', function( data ) {
 		ListingsStore.State.allListings = data;
+		// set the min and max ages (won't change)
+		// set the min and max prices (won't change)
+		for (var i = 0; i < ListingsStore.State.allListings.length; i++) {
+			// if this day care's price is less than the current min price, upate min price to this price.
+			if (parseFloat(ListingsStore.State.allListings[i].price_per_month) < ListingsStore.State.minPrice) {
+				ListingsStore.State.minPrice = parseFloat(ListingsStore.State.allListings[i].price_per_month);
+			}
+			// if this day care's price is more than the current max price, upate max price to this price.
+			if (parseFloat(ListingsStore.State.allListings[i].price_per_month) > ListingsStore.State.maxPrice) {
+				ListingsStore.State.maxPrice = parseFloat(ListingsStore.State.allListings[i].price_per_month);
+			}
+
+			// if this day care's min age is less than the current min age, upate min age to this min age.
+			if (ListingsStore.State.allListings[i].min_age < ListingsStore.State.minAge) {
+				ListingsStore.State.minAge = ListingsStore.State.allListings[i].min_age;
+			}
+			// if this day care's max age is more than the current max age, upate max age to this min max age.
+			if (ListingsStore.State.allListings[i].max_age > ListingsStore.State.maxAge) {
+				ListingsStore.State.maxAge = ListingsStore.State.allListings[i].max_age;
+			}
+		}
 		// because initially there is no filtering 
 		ListingsStore.State.filteredListings = data;
 		ListingsStore.State.isLoading = false;
@@ -61,5 +82,5 @@ ListingsController.prototype.filterByWaitlist = function(dayCareIdToHighlight) {
  * Render the react components 
  */
 ListingsController.prototype.renderReact = function() {
-	React.render(<ListingsAndMapWrapper data={ListingsStore.State.filteredListings} isLoading={ListingsStore.State.isLoading} highlightedDayCareId={ListingsStore.State.highlightedDayCareId}/>, document.getElementById('page'));
+	React.render(<ListingsAndMapWrapper data={ListingsStore.State.filteredListings} isLoading={ListingsStore.State.isLoading} highlightedDayCareId={ListingsStore.State.highlightedDayCareId} minPrice={ListingsStore.State.minPrice} maxPrice={ListingsStore.State.maxPrice} minAge={ListingsStore.State.minAge} maxAge={ListingsStore.State.maxAge}/>, document.getElementById('page'));
 };
