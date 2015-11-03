@@ -65,6 +65,7 @@ var DayCareMap = React.createClass({
 			map.set('draggable', true);
 			map.set('styles', [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}]);
 			
+			this.removeAllMapMarkers();
 			// Add map markers to the map
 			this.addIconsToMap(nextProps);
 
@@ -80,27 +81,28 @@ var DayCareMap = React.createClass({
 	 * Parameters: nextProps, from componentWillReceiveProps
 	 */
 	addIconsToMap: function(nextProps) {
-		var updatedMarkersArray = this.state.markers;
+		var updatedMarkersArray = this.state.markers; // blank... :/
 		var map = this.state.map;
 		var iconImage;
+		
+
 		// get marker for each daycare
 		for (var i = 0; i < nextProps.data.length; i++) {
 			// check if we need to add a new marker (if didn't exist before or is being hovered on)
-			if (updatedMarkersArray[nextProps.data[i].id]) { // if this bucket exists, a marker for this day care exists
-				if (nextProps.highlightedDayCareId === nextProps.data[i].id) { // If map marker should change colour? 
-					// make the marker blue
-					var marker = updatedMarkersArray[nextProps.data[i].id];
-					marker.setIcon('<%= image_path("icon2.png") %>');
-					continue; 
-				// If the old highlightedId is this day care id, change it back to normal red icon
-				} else if (this.props.highlightedDayCareId === nextProps.data[i].id) {
-					// make the marker blue
-					var marker = updatedMarkersArray[nextProps.data[i].id];
-					marker.setIcon('<%= image_path("icon.png") %>');
-					continue; 
-				} else { // Nothing has changed about this map marker, don't redraw it
-					continue; 
-				}
+			
+			if (nextProps.highlightedDayCareId === nextProps.data[i].id) { // If map marker should change colour? 
+				// make the marker blue
+				var marker = updatedMarkersArray[nextProps.data[i].id];
+				marker.setIcon('<%= image_path("icon2.png") %>');
+				continue; 
+			// If the old highlightedId is this day care id, change it back to normal red icon
+			} else if (this.props.highlightedDayCareId === nextProps.data[i].id) {
+				// make the marker blue
+				var marker = updatedMarkersArray[nextProps.data[i].id];
+				marker.setIcon('<%= image_path("icon.png") %>');
+				continue; 
+			} else { // Nothing has changed about this map marker, don't redraw it
+				continue; 
 			}
 
 			// Set the latitude and longitude for the map marker
@@ -134,6 +136,26 @@ var DayCareMap = React.createClass({
 		// set the state of markers array to new markers 
 		this.setState({markers: updatedMarkersArray});
 
+	},
+
+	/*
+	 * Removes every marker stored in this.state.markers
+	 * from the map so they can be redrawn
+	 */
+	removeAllMapMarkers: function() {
+		console.log(this.state.markers);
+		var markersArray = this.state.markers;
+		for (var markerId in markersArray) {
+			// make sure not getting keys from object.prototype
+			if (markersArray.hasOwnProperty(markerId) ) {
+				marker = markersArray[markerId];
+				// remove the marker
+				marker.setMap(null);
+			}
+		}
+		console.log(this.state.markers);
+		this.setState({markers: {}});
+		console.log(this.state.markers);
 	},
 
 	/*
