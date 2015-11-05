@@ -5,20 +5,29 @@ var DayCareFilters = React.createClass({
 		}
 	},
 
+	/*
+	 * Toggle show only day cares with no waitlist 
+	 */
 	filterByWaitlist: function() {
 		var noWaitlistOnly = document.getElementById('waitlist').checked;
 		listingsController.setWaitlistFilter(noWaitlistOnly);
 		this.setState({noWaitlistOnly: noWaitlistOnly}); 
 	},
 
+	/*
+	 * Show only day cares taking children over the age user selects 
+	 */
 	filterByAge: function() {
-		var ageValue = this.refs.ageRange.getDOMNode().value;
+		var ageValue = parseInt(this.refs.ageRange.getDOMNode().value);
 		listingsController.setAgeFilter(ageValue);
 		this.updateAgeLabel(ageValue);
 	},
 
+	/*
+	 * Show only day cares with a price lower than the user's selected max price 
+	 */
 	filterByPrice: function() {
-		var priceValue = this.refs.priceRange.getDOMNode().value;
+		var priceValue = parseFloat(this.refs.priceRange.getDOMNode().value);
 		listingsController.setPriceFilter(priceValue);
 		this.updatePriceLabel(priceValue);
 	},

@@ -127,7 +127,6 @@ var DayCareMap = React.createClass({
 	 * from the map so they can be redrawn
 	 */
 	removeAllMapMarkers: function() {
-		console.log(this.state.markers);
 		var markersArray = this.state.markers;
 		for (var markerId in markersArray) {
 			// make sure not getting keys from object.prototype
@@ -137,9 +136,7 @@ var DayCareMap = React.createClass({
 				marker.setMap(null);
 			}
 		}
-		console.log(this.state.markers);
 		this.setState({markers: {}});
-		console.log(this.state.markers);
 	},
 
 	/*

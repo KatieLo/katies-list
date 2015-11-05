@@ -78,7 +78,7 @@ ListingsController.prototype.setAgeFilter = function(minAge) {
 }
 
 /*
- * Set age filter
+ * Set price filter
  */
 ListingsController.prototype.setPriceFilter = function(maxPrice) {
 	ListingsStore.State.currentPriceFilter = maxPrice;
@@ -107,7 +107,6 @@ ListingsController.prototype.filter = function() {
 				continue;
 			}
 		}
-
 		if (ListingsStore.State.currentPriceFilter !== null) { // max price has been set
 			if (ListingsStore.State.allListings[i].price_per_month > ListingsStore.State.currentPriceFilter) { // has a price that is more than the specified maximum price, so skip this
 				continue;
