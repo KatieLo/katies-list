@@ -54,6 +54,7 @@ var Daycare = React.createClass({
 						<div className="col-xs-12 col-md-6">
 							<h6 className="street-address">{this.props.data.street}, {this.props.data.city}</h6>
 							<p>{this.props.data.description}</p>
+							<a href={this.props.data.website}>Website</a>
 						</div>
 					</div>	
 				</div>

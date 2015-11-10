@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803025115) do
+ActiveRecord::Schema.define(version: 20151109234835) do
 
   create_table "day_cares", force: :cascade do |t|
     t.string   "name"
-    t.string   "website"
     t.string   "street"
     t.string   "postcode"
     t.string   "city"
@@ -35,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150803025115) do
     t.integer  "close_time"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "website"
   end
 
 end
