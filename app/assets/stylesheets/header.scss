@@ -2,6 +2,12 @@
 	margin-bottom: 0;
 }
 
+.nav.navbar-nav {
+	.fa-chevron-right {
+		font-size: 11px;
+	}
+}
+
 a.navbar-brand {
 	padding: 0;
 	margin-right: 15px;
@@ -37,3 +43,4 @@ a.navbar-brand {
 	font-size: 30px;
 	color: $rose;
 }
+
