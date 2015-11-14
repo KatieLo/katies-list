@@ -36,10 +36,19 @@ var Daycare = React.createClass({
 			} else {
 				classes = 'row dayCareItem';
 			}
+			// Set streetview image if there is no uploaded cover image
 			var imageUrl = this.props.data.cover;
 			if (imageUrl === "") {
 				imageUrl = "https://maps.googleapis.com/maps/api/streetview?location=" + this.props.data.street + "," + this.props.data.city + "&size=600x400";
 			}
+
+			// if the description is too long, trim it to 220 characters
+			var trimmedDescription = this.props.data.description;
+			if (trimmedDescription.length > 220) {
+				trimmedDescription = this.props.data.description.substring(0, 220);
+				trimmedDescription = trimmedDescription.trim() + '...';
+			}
+
 			return (
 			<div className={classes} onMouseEnter={this.onHover}>
 				<div className="col-xs-12">
@@ -56,8 +65,8 @@ var Daycare = React.createClass({
 						</div>
 						<div className="col-xs-12 col-md-6">
 							<h6 className="street-address">{this.props.data.street}, {this.props.data.city}</h6>
-							<p>{this.props.data.description}</p>
-							<a href={this.props.data.website}>Website</a>
+							<p>{trimmedDescription}</p>
+							<a href={this.props.data.website} target="_blank"><i className="fa fa-external-link"></i> Website</a>
 						</div>
 					</div>	
 				</div>
