@@ -36,7 +36,10 @@ var Daycare = React.createClass({
 			} else {
 				classes = 'row dayCareItem';
 			}
-			var backUpImage = "https://maps.googleapis.com/maps/api/streetview?location=" + this.props.data.street + "," + this.props.data.city + "&size=600x400";
+			var imageUrl = this.props.data.cover;
+			if (imageUrl === "") {
+				imageUrl = "https://maps.googleapis.com/maps/api/streetview?location=" + this.props.data.street + "," + this.props.data.city + "&size=600x400";
+			}
 			return (
 			<div className={classes} onMouseEnter={this.onHover}>
 				<div className="col-xs-12">
@@ -48,7 +51,7 @@ var Daycare = React.createClass({
 					<div className="row">
 						<div className="col-xs-12 col-md-6">
 							<div className="streetview-img">
-								<img src={backUpImage} className="img-responsive"/>
+								<img src={imageUrl} className="img-responsive"/>
 							</div>
 						</div>
 						<div className="col-xs-12 col-md-6">

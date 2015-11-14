@@ -69,6 +69,6 @@ class DayCaresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def day_care_params
-      params.require(:day_care).permit(:name, :street, :postcode, :city, :state, :description, :latitude, :longitude, :min_age, :max_age, :has_waitlist, :average_waitlist_time, :group_size, :price_per_week, :price_per_month, :birth_certificate_required, :open_time, :close_time, :website)
+      params.require(:day_care).permit(:name, :street, :postcode, :city, :state, :description, :latitude, :longitude, :min_age, :max_age, :has_waitlist, :average_waitlist_time, :group_size, :price_per_week, :price_per_month, :birth_certificate_required, :open_time, :close_time, :website, :cover)
     end
 end
