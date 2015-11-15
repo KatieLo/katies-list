@@ -10,11 +10,8 @@ var DayCareSearch = React.createClass({
 
 	render: function() {
 		return (
-				 <div className="input-group">
-					<input type="text" className="form-control" placeholder="Search Daycares" ref="searchBar" onKeyUp={this.searchDayCares}/>
-					<span className="input-group-btn">
-						<button type="submit" className="btn btn-default">Go</button>
-					</span>
+				 <div>
+					<input type="text" className="form-control" placeholder="Search for a Day Care" ref="searchBar" onKeyUp={this.searchDayCares}/>
 				</div>
 				)
 			}
