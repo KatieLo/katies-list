@@ -85,6 +85,14 @@ ListingsController.prototype.setPriceFilter = function(maxPrice) {
 	this.filter();
 }
 
+/*
+ * Set search filter
+ */
+ListingsController.prototype.setSearchFilter = function(searchTerm) {
+	ListingsStore.State.currentSearchTerm = searchTerm;
+	this.filter();
+}
+
 
 
 /*
@@ -101,7 +109,6 @@ ListingsController.prototype.filter = function() {
 				continue;
 			}
 		}
-
 		if (ListingsStore.State.currentAgeFilter !== null) { // min age has been set
 			if (ListingsStore.State.allListings[i].min_age > ListingsStore.State.currentAgeFilter) { // has a min age that is older than required, so skip this
 				continue;
@@ -109,6 +116,14 @@ ListingsController.prototype.filter = function() {
 		}
 		if (ListingsStore.State.currentPriceFilter !== null) { // max price has been set
 			if (ListingsStore.State.allListings[i].price_per_month > ListingsStore.State.currentPriceFilter) { // has a price that is more than the specified maximum price, so skip this
+				continue;
+			}
+		}
+		if (ListingsStore.State.currentSearchTerm !== null) { // search term has been set
+			// does the name partially match the search term?
+			var name = ListingsStore.State.allListings[i].name.toLowerCase();
+			var term = ListingsStore.State.currentSearchTerm.toLowerCase();
+			if (name.indexOf(term) === -1) {
 				continue;
 			}
 		}
@@ -124,4 +139,10 @@ ListingsController.prototype.filter = function() {
  */
 ListingsController.prototype.renderReact = function() {
 	React.render(<ListingsAndMapWrapper data={ListingsStore.State.filteredListings} isLoading={ListingsStore.State.isLoading} highlightedDayCareId={ListingsStore.State.highlightedDayCareId} minPrice={ListingsStore.State.minPrice} maxPrice={ListingsStore.State.maxPrice} minAge={ListingsStore.State.minAge} maxAge={ListingsStore.State.maxAge}/>, document.getElementById('page'));
+
+	// render the search bar component for mobile and desktop header
+	var elements = document.getElementsByClassName("navbar-form");
+	for (var i = 0; i < elements.length; i++) {
+		React.render(<DayCareSearch />, elements[i]);
+	}
 };

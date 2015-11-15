@@ -15,6 +15,7 @@ var ListingsStore = {
     maxAge: 0,
     currentAgeFilter: null,
     currentPriceFilter: null, 
-    currentWaitlistFilter: null
+    currentWaitlistFilter: null,
+    currentSearchTerm: null
   }
 };
