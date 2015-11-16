@@ -6,6 +6,16 @@ var DayCareFilters = React.createClass({
 	},
 
 	/*
+	 * Listen for mobile 'show filter' button click 
+	 */
+	componentDidMount: function() {
+		$('#filter-button').on('click', function(){
+			$('#filters').removeClass('hidden-xs');
+			$('#filter-button').hide();
+		});
+	},
+
+	/*
 	 * Toggle show only day cares with no waitlist 
 	 */
 	filterByWaitlist: function() {
@@ -58,36 +68,36 @@ var DayCareFilters = React.createClass({
 		var minPriceLabel = '$' + this.props.minPrice;
 		var maxPriceLabel = '$' + this.props.maxPrice;
 		return (
-			<div id="filters">
-				<div className="row">
-					<div className="hidden-xs col-md-12 filter-label">
-						<div className="filter">
-							<label>From what age do you need day care?</label><span ref="ageLabel"></span>
-							<input ref="ageRange" type="range" min={this.props.minAge} max={this.props.maxAge} step="1"  onChange={this.filterByAge}/>
-							<span className="slider-label label-min">{minAgeLabel}</span>
-							<span className="slider-label label-max">{maxAgeLabel}</span>	
+				<div className="hidden-xs" id="filters">
+					<div className="row">
+						<div className="col-md-12 filter-label">
+							<div className="filter">
+								<label>From what age do you need day care?</label><span ref="ageLabel"></span>
+								<input ref="ageRange" type="range" min={this.props.minAge} max={this.props.maxAge} step="1"  onChange={this.filterByAge}/>
+								<span className="slider-label label-min">{minAgeLabel}</span>
+								<span className="slider-label label-max">{maxAgeLabel}</span>	
+							</div>
+						</div>
+					</div>
+					<div className="row">
+						<div className="col-md-12 filter-label">
+							<div className="filter">
+								<label>Max Price Per Month</label> <span ref="priceLabel"></span>
+								<input ref="priceRange" type="range" min={this.props.minPrice} max={this.props.maxPrice} step="10" onChange={this.filterByPrice}/>
+								<span className="slider-label label-min">{minPriceLabel}</span>
+								<span className="slider-label label-max">{maxPriceLabel}</span>
+							</div>
+						</div>
+					</div>
+					<div className="row">
+						<div className="col-md-12 filter-label last">
+							<div className="filter">
+								<input id="waitlist" type="checkbox" onClick={this.filterByWaitlist}/>
+								<label>Only show daycares with no waitlist</label>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="row">
-					<div className="hidden-xs col-md-12 filter-label">
-						<div className="filter">
-							<label>Max Price Per Month</label> <span ref="priceLabel"></span>
-							<input ref="priceRange" type="range" min={this.props.minPrice} max={this.props.maxPrice} step="10" onChange={this.filterByPrice}/>
-							<span className="slider-label label-min">{minPriceLabel}</span>
-							<span className="slider-label label-max">{maxPriceLabel}</span>
-						</div>
-					</div>
-				</div>
-				<div className="row">
-					<div className="hidden-xs col-md-12 filter-label last">
-						<div className="filter">
-							<input id="waitlist" type="checkbox" onClick={this.filterByWaitlist}/>
-							<label>Only show daycares with no waitlist</label>
-						</div>
-					</div>
-				</div>
-			</div>
 				)
 			}
 	});
