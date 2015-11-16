@@ -9,13 +9,13 @@ var DayCareListings = React.createClass({
       var stubArray = [1,2,3]; // make three 'loading' state day care items
       dayCareNodes = stubArray.map(function (blank, index) {
         return (
-          <Daycare isLoading={this.props.isLoading} />
+          <Daycare key={index} isLoading={this.props.isLoading} />
           );
       }.bind(this));
     } else {
       dayCareNodes = this.props.data.map(function (daycare, index) {
         return (
-          <Daycare data={daycare} highlightedDayCareId={this.props.highlightedDayCareId} />
+          <Daycare key={daycare.id} data={daycare} highlightedDayCareId={this.props.highlightedDayCareId} />
           );
       }.bind(this));
     }
